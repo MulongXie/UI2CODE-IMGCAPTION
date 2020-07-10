@@ -1,8 +1,8 @@
-import img_drawLabel as draw
-import img_segment as seg
-import web_catchElementInfo as catch
-import web_crawl as crawl
-import file_utils as file
+import lib.img_drawLabel as draw
+import lib.img_segment as seg
+import lib.web_catchElementInfo as catch
+import lib.web_crawl as crawl
+import lib.file_utils as file
 
 import pandas as pd
 import os
