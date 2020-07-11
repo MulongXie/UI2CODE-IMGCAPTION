@@ -77,23 +77,10 @@ def get_element(elements, df, driver):
 # save the screenshot
 # save the html page
 @func_set_timeout(60)
-def catch(url, index, out_dir, label_format, driver_path, browser='PhantomJS'):
-
-    out_html = pjoin(out_dir, str(index) + '.html')
-    out_elements = pjoin(out_dir, str(index) + '.csv')
-    out_img = pjoin(out_dir, str(index) + '.png')
-
+def catch(url, out_html, out_elements, out_img, label_format, driver):
     print("*** catching element from %s ***" % url)
     print(time.ctime())
     label = label_format
-
-    # initialize the webdriver to get the full screen-shot and attributes
-    if browser == 'PhantomJS':
-        driver = webdriver.PhantomJS(executable_path=os.path.join(driver_path, 'phantomjs.exe'))
-    elif browser == 'Chrome':
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless')  # do not show the browser every time
-        driver = webdriver.Chrome(executable_path=os.path.join(driver_path, 'chromedriver.exe'), options=options)
 
     # connect the url
     try:
