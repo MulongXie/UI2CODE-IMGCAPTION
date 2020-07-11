@@ -1,0 +1,83 @@
+[INFO  - 2020-07-11T06:27:09.355Z] GhostDriver - Main - running on port 64962
+[INFO  - 2020-07-11T06:27:13.723Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2020-07-11T06:27:13.723Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.customHeaders:  - {}
+[INFO  - 2020-07-11T06:27:13.723Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2020-07-11T06:27:13.723Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 8ef79e50-c33f-11ea-bba2-c98d6c2e104c
+[ERROR - 2020-07-11T06:27:13.734Z] RouterReqHand - _handle.error - {"name":"Missing Command Parameter","message":"{\"headers\":{\"Accept\":\"application/json\",\"Accept-Encoding\":\"identity\",\"Content-Length\":\"72\",\"Content-Type\":\"application/json;charset=UTF-8\",\"Host\":\"127.0.0.1:64962\",\"User-Agent\":\"selenium/3.141.0 (python windows)\"},\"httpVersion\":\"1.1\",\"method\":\"POST\",\"post\":\"{\\\"sessionId\\\": \\\"8ef79e50-c33f-11ea-bba2-c98d6c2e104c\\\", \\\"pageLoad\\\": 50000}\",\"url\":\"/timeouts\",\"urlParsed\":{\"anchor\":\"\",\"query\":\"\",\"file\":\"timeouts\",\"directory\":\"/\",\"path\":\"/timeouts\",\"relative\":\"/timeouts\",\"port\":\"\",\"host\":\"\",\"password\":\"\",\"user\":\"\",\"userInfo\":\"\",\"authority\":\"\",\"protocol\":\"\",\"source\":\"/timeouts\",\"queryKey\":{},\"chunks\":[\"timeouts\"]},\"urlOriginal\":\"/session/8ef79e50-c33f-11ea-bba2-c98d6c2e104c/timeouts\"}","line":546,"sourceURL":"phantomjs://code/session_request_handler.js","stack":"_postTimeout@phantomjs://code/session_request_handler.js:546:73\n_handle@phantomjs://code/session_request_handler.js:148:25\n_reroute@phantomjs://code/request_handler.js:61:20\n_handle@phantomjs://code/router_request_handler.js:78:46"}
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:16.255Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'c.prepend(i)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:16.255Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - stack:
+  renderAd (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:6)
+  exports (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:7)
+  slotAsync (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:7)
+  (anonymous function) (https://www.bbc.com/:694)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:16.275Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'c.prepend(i)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:16.275Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - stack:
+  renderAd (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:6)
+  exports (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:7)
+  slotAsync (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:7)
+  (anonymous function) (https://www.bbc.com/:890)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:16.304Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'c.prepend(i)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:16.305Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - stack:
+  renderAd (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:6)
+  exports (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:7)
+  slotAsync (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:7)
+  (anonymous function) (https://www.bbc.com/:1127)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:16.336Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'c.prepend(i)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:16.337Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - stack:
+  renderAd (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:6)
+  exports (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:7)
+  slotAsync (https://static.bbc.co.uk/bbcdotcom/4.4.0/script/dist/bbcdotcom.js:7)
+  (anonymous function) (https://www.bbc.com/:1592)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:17.018Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:17.018Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - stack:
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  n (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  n (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  n (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  n (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  n (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  n (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  n (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+  (anonymous function) (https://cdn.permutive.com/e488cdb0-e7cb-4d91-9648-60d437d8e491-web.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:36.475Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - msg: TypeError: undefined is not a constructor (evaluating 'new b')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-07-11T06:27:36.475Z] Session [8ef79e50-c33f-11ea-bba2-c98d6c2e104c] - page.onError - stack:
+  (anonymous function) (https://cdn.ampproject.org/rtv/012006300332000/amp4ads-v0.js:72)
+  (anonymous function) (https://cdn.ampproject.org/rtv/012006300332000/amp4ads-v0.js:72)
+
+  phantomjs://platform/console++.js:263 in error
