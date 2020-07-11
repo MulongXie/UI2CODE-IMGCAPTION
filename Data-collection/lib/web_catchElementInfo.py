@@ -88,7 +88,7 @@ def find_element(element, df, driver):
 # fetch the elements information into csv
 # and save the screenshot
 @func_set_timeout(60)
-def catch(url, out_label, out_img, libel_format, driver_path, browser='PhantomJS'):
+def catch(url, out_label, out_img, libel_format, driver_path, browser='Chrome'):
     try:
         print("*** catching element from %s ***" % url)
         print(time.ctime())
@@ -106,10 +106,10 @@ def catch(url, out_label, out_img, libel_format, driver_path, browser='PhantomJS
 
         try:
             driver.get(url)
+            print('Link Connected Successfully')
         except:
             print('Time out')
             return None, None
-        print('Link Connected Successfully')
 
         # fetch the attributes
         # label = find_element('div', label, driver)

@@ -13,7 +13,7 @@ start_time = time.clock()
 is_segment = False
 is_draw_label = True
 # set the web crawler
-url = "https://www.anu.edu.au/"
+url = "https://www.bbc.com/"
 # set path
 img_org_path = 'data/org.png'
 img_drawn_path = 'data/drawn.png'
