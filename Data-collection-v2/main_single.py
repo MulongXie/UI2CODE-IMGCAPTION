@@ -17,7 +17,7 @@ is_draw_label = True
 
 # set the web crawler
 driver_path = 'D:/webdriver'
-url = "https://www.bbc.com/"
+url = "http://www.facebook.com"
 browser = 'PhantomJS'
 
 # catch label and screenshot img and segment them into smaller size
