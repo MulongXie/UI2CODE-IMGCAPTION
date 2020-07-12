@@ -12,7 +12,7 @@ is_segment = False
 is_draw_label = True
 
 driver_path = 'D:\webdriver'
-browser = 'PhantomJS'
+browser = 'Chrome'
 data_position = 'E:\Mulong\Datasets\gui\dataset_webpage\page30000'
 label_format = pd.read_csv(os.path.join(data_position, 'format.csv'), index_col=0)
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     setup_output_folders()
     start_pos = 2
-    end_pos = 15000
+    end_pos = 10
     bad_link = 0
     for index in range(start_pos, len(links)):
         img, label = None, None

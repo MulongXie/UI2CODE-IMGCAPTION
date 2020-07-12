@@ -18,7 +18,7 @@ is_draw_label = True
 # set the web crawler
 driver_path = 'D:/webdriver'
 url = "http://www.facebook.com"
-browser = 'PhantomJS'
+browser = 'Chrome'
 
 # catch label and screenshot img and segment them into smaller size
 if __name__ == '__main__':
@@ -32,11 +32,11 @@ if __name__ == '__main__':
         driver = webdriver.PhantomJS(executable_path=os.path.join(driver_path, 'phantomjs.exe'))
     elif browser == 'Chrome':
         options = webdriver.ChromeOptions()
-        options.add_argument('--headless')  # do not show the browser every time
+        options.add_argument('headless')  # do not show the browser every time
         driver = webdriver.Chrome(executable_path=os.path.join(driver_path, 'chromedriver.exe'), options=options)
 
     # set the format of label
-    label_format = pd.read_csv('data/format.csv', index_col=0)
+    label_format = pd.read_csv('format.csv', index_col=0)
     try:
         img, label = catch.catch(url, out_html, out_elements, out_img, label_format, driver)
         # read and draw label on segment img

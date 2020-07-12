@@ -31,29 +31,34 @@ def compo_filter(compo, body_size):
 def save_screenshot_scroll(driver, output_path):
     # scroll down to the bottom and scroll back to the top
     # ensure all element fully loaded
-    driver.execute_script("""
-        (function () {
-            var y = 0;
-            var step = 100;
-            window.scroll(0, 0);
+    # driver.execute_script("""
+    #     (function () {
+    #         var y = 0;
+    #         var step = 100;
+    #         window.scroll(0, 0);
+    #
+    #         function f() {
+    #             if (y < document.body.scrollHeight) {
+    #                 y += step;
+    #                 window.scroll(0, y);
+    #                 setTimeout(f, 100);
+    #             } else {
+    #                 window.scroll(0, 0);
+    #                 document.title += "scroll-done";
+    #             }
+    #         }
+    #         setTimeout(f, 1000);
+    #     })();
+    # """)
+    # for i in range(30):
+    #     if "scroll-done" in driver.title:
+    #         break
+    #     time.sleep(10)
+    # driver.save_screenshot(output_path)
 
-            function f() {
-                if (y < document.body.scrollHeight) {
-                    y += step;
-                    window.scroll(0, y);
-                    setTimeout(f, 100);
-                } else {
-                    window.scroll(0, 0);
-                    document.title += "scroll-done";
-                }
-            }
-            setTimeout(f, 1000);
-        })();
-    """)
-    for i in range(30):
-        if "scroll-done" in driver.title:
-            break
-        time.sleep(10)
+    width = driver.execute_script("return document.documentElement.scrollWidth")
+    height = driver.execute_script("return document.documentElement.scrollHeight")
+    driver.set_window_size(width, height)
     driver.save_screenshot(output_path)
 
 
