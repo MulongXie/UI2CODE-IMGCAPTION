@@ -17,7 +17,7 @@ is_draw_label = True
 
 # set the web crawler
 driver_path = 'D:/webdriver'
-url = "http://www.facebook.com"
+url = "http://www.youtube.com"
 browser = 'Chrome'
 
 # catch label and screenshot img and segment them into smaller size

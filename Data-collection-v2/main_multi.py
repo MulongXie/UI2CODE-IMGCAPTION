@@ -45,8 +45,8 @@ if __name__ == '__main__':
     print("*** %d Links Fetched ***\n" % len(links))
 
     setup_output_folders()
-    start_pos = 2
-    end_pos = 10
+    start_pos = 0
+    end_pos = 100
     bad_link = 0
     for index in range(start_pos, len(links)):
         img, label = None, None
