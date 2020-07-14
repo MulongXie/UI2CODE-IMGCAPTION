@@ -39,14 +39,15 @@ def draw(label, pic):
         else:
             count[element] = 1
         pic = cv2.rectangle(pic, top_left, botom_right, color, 1)
-        cv2.putText(pic, element + str(count[element]), top_left, cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA)
+        cv2.putText(pic, element + str(count[element]), top_left,
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA)
 
 
 def fetch_element(ele_name, ele_all):
     elements_dom = driver.find_elements_by_xpath('//' + ele_name)
 
     for e in elements_dom:
-        elements = {'element':ele_name,
+        elements = {'element': ele_name,
                     'bx': e.location['x'],
                     'by': e.location['y'],
                     'bw': e.size['width'],
@@ -58,7 +59,8 @@ def fetch_element(ele_name, ele_all):
 @func_set_timeout(60)
 def crawl(url):
     try:
-        driver.get(url)
+        driver.execute_script('window.open("' + url + '")')
+        driver.switch_to.window(driver.window_handles[-1])
     except FunctionTimedOut:
         print('Time out')
         return None, None
@@ -71,14 +73,19 @@ links = csv.Link
 fmt = pd.read_csv(pjoin(root, 'format.csv'), index_col=0)
 
 options = webdriver.ChromeOptions()
-options.add_argument('--headless')
+options.headless = True
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-gpu')
 options.add_argument('--disable-dev-shm-usage')
-driver = webdriver.Chrome(driver_path, options=options)
+options.add_argument('--incognito')
+options.add_argument('--disable-infobars')
 
-start_pos = 0
-end_pos = 30000
+driver = webdriver.Chrome(driver_path, options=options)
+# Open a start tab
+driver.get("https://www.baidu.com")
+
+start_pos = 150
+end_pos = 25050
 for index in range(start_pos, end_pos):
     start_time = time.clock()
 
@@ -98,21 +105,41 @@ for index in range(start_pos, end_pos):
         open(path_html, 'w', encoding='utf-8').write(driver.page_source)
     except FunctionTimedOut:
         print("*** Time out ***")
+
+        if(len(driver.window_handles) > 1):
+            # Switch to the previous tab
+            driver.switch_to.window(driver.window_handles[-1])
+            time.sleep(2)
+            # Close the tab
+            driver.close()
+            print(driver.window_handles[-1] + ' is closed')
+            # Switch to current tab
+            driver.switch_to.window(driver.window_handles[0])
+
         continue
-    except:
-        print("*** Link Connection Failed ***")
-        driver.quit()
-        driver = webdriver.Chrome(driver_path, options=options)
     print("1/3. Successfully Crawling Url")
 
     # get screenshots
     try:
         body = driver.find_elements_by_tag_name('body')
-        S = lambda X: driver.execute_script('return document.body.parentNode.scroll' + X)
-        driver.set_window_size(S('Width'), S('Height'))  # May need manual adjustment
+        def S(X): return driver.execute_script(
+            'return document.body.parentNode.scroll' + X)
+        # May need manual adjustment
+        driver.set_window_size(S('Width'), S('Height'))
         driver.find_element_by_tag_name('body').screenshot(path_org)
     except:
         print("*** Saving Screenshot Failed ***")
+
+        if(len(driver.window_handles) > 1):
+            # Switch to the previous tab
+            driver.switch_to.window(driver.window_handles[-1])
+            time.sleep(2)
+            # Close the tab
+            driver.close()
+            print(driver.window_handles[-1] + ' is closed')
+            # Switch to current tab
+            driver.switch_to.window(driver.window_handles[0])
+
         continue
     print("2/3. Successfully Saving Screenshot")
 
@@ -124,6 +151,17 @@ for index in range(start_pos, end_pos):
         element_all.to_csv(path_label)
     except:
         print("*** Catching Element Failed ***")
+
+        if(len(driver.window_handles) > 1):
+            # Switch to the previous tab
+            driver.switch_to.window(driver.window_handles[-1])
+            time.sleep(2)
+            # Close the tab
+            driver.close()
+            print(driver.window_handles[-1] + ' is closed')
+            # Switch to current tab
+            driver.switch_to.window(driver.window_handles[0])
+
         continue
     print("3/3. Successfully Fetching Elements")
 
@@ -131,9 +169,22 @@ for index in range(start_pos, end_pos):
     pic = cv2.imread(path_org)
     draw(element_all, pic)
     cv2.imwrite(path_drawn, pic)
-    if(index != start_pos):
+    print('Windows Number:' + str(len(driver.window_handles)))
+
+    if(len(driver.window_handles) > 1):
+        # Switch to the previous tab
+        driver.switch_to.window(driver.window_handles[-1])
+        time.sleep(2)
+        # Close the tab
         driver.close()
-    time.sleep(4)
+        print(driver.window_handles[-1] + ' is closed')
+        # Switch to current tab
+        driver.switch_to.window(driver.window_handles[0])
+
+    # Clear cookies every 5 tabs:
+    if(index % 5 == 0):
+        driver.delete_all_cookies()
     print("Time taken:%ds" % int(time.clock() - start_time))
     print(time.ctime() + '\n')
 
+driver.quit()
