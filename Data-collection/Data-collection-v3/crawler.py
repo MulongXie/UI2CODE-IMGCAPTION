@@ -57,24 +57,26 @@ def fetch_element(ele_name, ele_all):
 
 @func_set_timeout(60)
 def crawl(url):
-    try:
-        driver.get(url)
-    except FunctionTimedOut:
-        print('Time out')
-        return None, None
+    driver.get(url)
 
 
+driver_path = 'D:\webdriver\chromedriver.exe'
 root = "E:\Mulong\Datasets\gui\dataset_webpage\page30000"
-csv = pd.read_csv(pjoin(root, 'link_30000.csv'))
+csv = pd.read_csv('link_30000.csv')
 links = csv.Link
-fmt = pd.read_csv(pjoin(root, 'format.csv'), index_col=0)
+fmt = pd.read_csv('format.csv')
 
 options = webdriver.ChromeOptions()
-options.headless = True
-driver = webdriver.Chrome(executable_path='D:\\webdriver\\chromedriver.exe', options=options)
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-gpu')
+options.add_argument('--disable-dev-shm-usage')
+driver = webdriver.Chrome(driver_path, options=options)
 
-start_pos = 0
-end_pos = 100
+start_pos = 391
+end_pos = 15000
+success = 378
+begin = time.clock()
 for index in range(start_pos, end_pos):
     start_time = time.clock()
 
@@ -88,13 +90,17 @@ for index in range(start_pos, end_pos):
     element_all = fmt
     # fetch url
     url = 'http://' + links.iloc[index]
-    print("Crawling " + str(index) + ' ' + url)
+    print("\nCrawling " + str(index) + ' ' + url)
     try:
         crawl(url)
         open(path_html, 'w', encoding='utf-8').write(driver.page_source)
     except FunctionTimedOut:
         print("*** Time out ***")
         continue
+    except:
+        print("*** Link Connection Failed ***")
+        driver.quit()
+        driver = webdriver.Chrome(driver_path, options=options)
     print("1/3. Successfully Crawling Url")
 
     # get screenshots
@@ -123,7 +129,11 @@ for index in range(start_pos, end_pos):
     pic = cv2.imread(path_org)
     draw(element_all, pic)
     cv2.imwrite(path_drawn, pic)
+    # time.sleep(3)
 
-    print("Time taken:%ds" % int(time.clock() - start_time))
-    print(time.ctime() + '\n')
+    driver.quit()
+    driver = webdriver.Chrome(driver_path, options=options)
+    success += 1
+    print("Time taken:%.3fs, Total time:%.3fs, Success:[%d/%d]" % ((time.clock() - start_time), (time.clock() - begin), success, index + 1))
+    print(time.ctime())
 
