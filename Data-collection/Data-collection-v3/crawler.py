@@ -73,9 +73,9 @@ options.add_argument('--disable-gpu')
 options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome(driver_path, options=options)
 
-start_pos = 391
+start_pos = 2629
 end_pos = 15000
-success = 378
+success = 2521
 begin = time.clock()
 for index in range(start_pos, end_pos):
     start_time = time.clock()
