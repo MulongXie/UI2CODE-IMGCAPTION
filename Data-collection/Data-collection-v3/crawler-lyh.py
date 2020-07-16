@@ -6,6 +6,8 @@ from func_timeout import func_set_timeout, FunctionTimedOut
 import time
 
 
+# Change to phantomJs
+
 def draw(label, pic):
     def select_color(item):
         color = (0, 0, 0)
@@ -66,7 +68,8 @@ def crawl(driver, url, path_html):
 # Screen shot function
 @func_set_timeout(60)
 def screenShot(driver, path_org):
-    def S(X): return driver.execute_script('return document.body.parentNode.scroll' + X)
+    def S(X): return driver.execute_script(
+        'return document.body.parentNode.scroll' + X)
     # May need manual adjustment
     driver.set_window_size(S('Width'), S('Height'))
     # Chrome
@@ -75,8 +78,7 @@ def screenShot(driver, path_org):
     driver.get_screenshot_as_file(path_org)
 
 
-root = "./"
-driver_path = ''
+root = "/root/data/web-page-30000"
 csv = pd.read_csv(pjoin(root, 'link_30000.csv'))
 links = csv.Link
 fmt = pd.read_csv(pjoin(root, 'format.csv'), index_col=0)
@@ -84,6 +86,7 @@ fmt = pd.read_csv(pjoin(root, 'format.csv'), index_col=0)
 #options = webdriver.ChromeOptions()
 
 options = webdriver.FirefoxOptions()
+
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-gpu')
@@ -92,14 +95,30 @@ options.add_argument('--incognito')
 options.add_argument('--disable-infobars')
 
 #driver = webdriver.Chrome(options=options)
-driver = webdriver.Firefox(executable_path=driver_path, options=options)
+
+driver = webdriver.Firefox(options=options)
 
 # Open a start tab
 driver.get("https://www.baidu.com")
 
-start_pos = 20000
-end_pos = 25000
+start_pos = 10000
+end_pos = 15000
+timeout_count = 0
 for index in range(start_pos, end_pos):
+
+    # Restart every 50 iter
+    if(index % 50 == 0):
+        print('*** Restarting the driver ***')
+        driver.quit()
+        time.sleep(10)
+        driver = webdriver.Firefox(options=options)
+    # Restart if it appears too many time out
+    if(timeout_count > 3):
+        timeout_count = 0
+        print('*** Restarting the driver ***')
+        driver.quit()
+        time.sleep(10)
+        driver = webdriver.Firefox(options=options)
     start_time = time.clock()
 
     # set output
@@ -118,6 +137,14 @@ for index in range(start_pos, end_pos):
 
     except FunctionTimedOut:
         print("*** Crawling Time out ***")
+        timeout_count += 1
+        continue
+    except:
+        print("*** Crawling Failed ***")
+        # Restart the driver
+        driver.quit()
+        time.sleep(10)
+        driver = webdriver.Firefox(options=options)
         continue
     print("1/3. Successfully Crawling Url")
 
@@ -125,34 +152,50 @@ for index in range(start_pos, end_pos):
     try:
         screenShot(driver, path_org)
     except FunctionTimedOut:
+        print("*** Saving Screenshot Time out ***")
+        timeout_count += 1
+        continue
+    except:
         print("*** Saving Screenshot Failed ***")
+        # Restart the driver
+        driver.quit()
+        time.sleep(10)
+        driver = webdriver.Firefox(options=options)
         continue
     print("2/3. Successfully Saving Screenshot")
 
     # get elements
-    element_all = fetch_element('img', element_all)
-    element_all = fetch_element('button', element_all)
-    element_all = fetch_element('input', element_all)
-    element_all.to_csv(path_label)
+    try:
+        element_all = fetch_element('img', element_all)
+        element_all = fetch_element('button', element_all)
+        element_all = fetch_element('input', element_all)
+        element_all.to_csv(path_label)
+    except:
+        print("*** Fetching Elements Failed ***")
+        # Restart the driver
+        driver.quit()
+        time.sleep(10)
+        driver = webdriver.Firefox(options=options)
+        continue
     print("3/3. Successfully Fetching Elements")
 
     # draw results
     pic = cv2.imread(path_org)
     draw(element_all, pic)
     cv2.imwrite(path_drawn, pic)
-    print('Windows Number:' + str(len(driver.window_handles)))
+    print(f'Windows Number:{len(driver.window_handles)}')
 
-    time.sleep(1)
-    while(len(driver.window_handles) > 1):
-        # Switch to the previous tab
-        driver.switch_to.window(driver.window_handles[-1])
-        print(driver.window_handles[-1] + ' is closed')
-        # Close the tab
-        driver.close()
-        # Wait the tab closing
-        time.sleep(2)
-        # Switch to current tab
-        driver.switch_to.window(driver.window_handles[0])
+    time.sleep(4)
+    # while(len(driver.window_handles) > 1):
+    #     # Switch to the previous tab
+    #     driver.switch_to.window(driver.window_handles[-1])
+    #     print(f'{driver.window_handles[-1]} is closed')
+    #     # Close the tab
+    #     driver.close()
+    #     # Wait the tab closing
+    #     time.sleep(2)
+    #     # Switch to current tab
+    #     driver.switch_to.window(driver.window_handles[0])
 
     print("Time taken:%ds" % int(time.clock() - start_time))
     print(time.ctime() + '\n')
