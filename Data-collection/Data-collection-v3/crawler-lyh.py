@@ -183,7 +183,7 @@ for index in range(start_pos, end_pos):
     pic = cv2.imread(path_org)
     draw(element_all, pic)
     cv2.imwrite(path_drawn, pic)
-    print(f'Windows Number:{len(driver.window_handles)}')
+    print('Windows Number:' + str(len(driver.window_handles)))
 
     time.sleep(4)
     # while(len(driver.window_handles) > 1):
